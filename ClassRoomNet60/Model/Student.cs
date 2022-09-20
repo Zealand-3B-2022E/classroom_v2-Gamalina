@@ -40,29 +40,38 @@ namespace ClassRoomNet60.Model
                 Console.WriteLine("Student Name: " + students.Name);
                 Console.WriteLine("Student Birthday: " + students.Birthday);
                 Console.WriteLine("Student Birth Month: " + students.BirthMonth);
-                Console.WriteLine("The student was born in: " + students.Seasons());
+                Console.WriteLine("The student was born in: " + students.Seasons(students.BirthMonth));
                 Console.WriteLine(" ");
                 
             }
         }
 
-        public string Seasons()
+        public string Seasons(int birthmonth)
         {
-            if (BirthMonth >= 3 && BirthMonth <= 5)
+            if (BirthMonth == 3 || BirthMonth == 4 || BirthMonth == 5 )
             {
                 return "Spring";
             }
-            if (BirthMonth >= 6 && BirthMonth <= 8)
+            if (BirthMonth == 6 || BirthMonth == 7 || BirthMonth == 8)
             {
                 return "Summer";
             }
-            if (BirthMonth >= 9 && BirthMonth <= 11)
+            if (BirthMonth == 9 || BirthMonth == 10 || BirthMonth == 11)
             {
                 return "Autumn";
             }
-            else
+            if (BirthMonth == 12 || BirthMonth == 2 || BirthMonth == 1)
             {
                 return "Winter";
+            }
+
+            if (BirthMonth <= 0)
+            {
+                throw new ArgumentException("Incorrect Birthmonth1");
+            }
+            else
+            {
+                throw new ArgumentException("Incorrect Birthmonth2");
             }
         }
 
@@ -70,7 +79,7 @@ namespace ClassRoomNet60.Model
         {
             var seasons =
                 from Student in _Students
-                group Student by Student.Seasons()
+                group Student by Student.Seasons(Student.BirthMonth)
                 into birthMonthSeasons
                 select new
                 {
